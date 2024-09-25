@@ -1,21 +1,46 @@
 import java.util.ArrayList;
-import java.util.List;
 
-public class Universidade{
-    private List<Professores> professores;
-    
-    public Universidade(){//não vai receber nada, só vai fazer algo novo.
-        this.professores = new ArrayList<>();//referencia o professores e gruda na lista.
+public class Universidade {
+    private String nome;
+    private ArrayList<Professor> professores;
+
+    // Construtor
+    public Universidade(String nome) {
+        this.nome = nome;
+        this.professores = new ArrayList<>();
     }
-    
-    public void adicionarProfessor(Professor professor){
+
+    // Método para adicionar professor
+    public void adicionarProfessor(Professor professor) {
         professores.add(professor);
     }
-    
-    public void listarProfessores
-    
-    
-	public static void main(String[] args) {
-		System.out.println("Hello World");
-	}
+
+    // Método para listar todos os professores
+    public void listarProfessores() {
+        if (professores.isEmpty()) {
+            System.out.println("Nenhum professor cadastrado.");
+        } else {
+            System.out.println("Professores da Universidade " + nome + ":");
+            for (Professor professor : professores) {
+                professor.exibirInformacoes();
+            }
+        }
+    }
+
+    // Método main dentro da classe Universidade
+    public static void main(String[] args) {
+        // Criação de professores
+        Professor professor1 = new Professor("Carlos Silva", "Matemática");
+        Professor professor2 = new Professor("Ana Pereira", "História");
+
+        // Criação da universidade
+        Universidade universidade = new Universidade("Universidade XYZ");
+
+        // Adicionando professores à universidade
+        universidade.adicionarProfessor(professor1);
+        universidade.adicionarProfessor(professor2);
+
+        // Listando os professores da universidade
+        universidade.listarProfessores();
+    }
 }
