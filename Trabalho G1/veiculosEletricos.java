@@ -1,14 +1,8 @@
-/******************************************************************************
-(lembrar de puxar tempo carga do eletroposto letsgooo) 
-
-[método para remover carro á frota]
-
-*******************************************************************************/
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner
+import java.util.Scanner;
 
-public class veiculosEletricos extends Eletropostos{
+public class veiculosEletricos{
     protected int id_num;
     protected String marca;
     protected String modelo;
@@ -61,8 +55,25 @@ public class veiculosEletricos extends Eletropostos{
     }
     
     
-    public static void removeCarro(){
-    
+    public static void removeCarro() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Digite o ID do veículo que deseja remover: ");
+        int id_num = scanner.nextInt();
+
+        boolean encontrado = false;
+        for (veiculosEletricos veiculo : frota) {
+            if (veiculo.getId_Num() == id_num) {
+                frota.remove(veiculo);
+                System.out.println("Veículo removido: " + veiculo.marca + " " + veiculo.modelo);
+                encontrado = true;
+                break;
+            }
+        }
+
+        if (!encontrado) {
+            System.out.println("Veículo não encontrado.");
+        }
     }
     
     public static void listarCarros(){
@@ -71,12 +82,12 @@ public class veiculosEletricos extends Eletropostos{
         } else {
             System.out.println("Veículos da frota:");
             for (veiculosEletricos veiculos : frota) {
-                System.out.println("ID: " + veiculos.id_num + "| Marca: " + veiculos.marca + "| Modelo: " + veiculos.modelo + "| Ano de fabricação: " + veiculos.ano_fab + "| Capacidade total da bateria: " + veiculos.cap_total_bat + "| Autonomia máxima: " + aut_max);
+                System.out.println("ID: " + veiculos.id_num + "| Marca: " + veiculos.marca + "| Modelo: " + veiculos.modelo + "| Ano de fabricação: " + veiculos.ano_fab + "| Capacidade total da bateria: " + veiculos.cap_total_bat + "| Autonomia máxima: " + veiculos.aut_max);
             } 
         }
     }
     
-    //
+    //get e set
     
     public int getId_Num() {
         return id_num;
@@ -124,5 +135,16 @@ public class veiculosEletricos extends Eletropostos{
 
     public void setAut_Max(double aut_max) {
         this.aut_max = aut_max;
+    }
+    
+    public static void main(String[] args) {
+        //testes
+        addCarro();
+        
+        listarCarros();
+
+        removeCarro();
+
+        listarCarros();
     }
 }
