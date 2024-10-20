@@ -90,13 +90,4 @@ public class Eletropostos {
     public void setTempoCarga(double tempoCarga) {
         this.tempoCarga = tempoCarga;
     }
-    
-    public static void main(String[] args) {//TESTES !!!
-        
-        cadastrar();
-        cadastrar();
-        
-        exibirPosto();
-    
-    }
 }
