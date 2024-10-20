@@ -137,14 +137,4 @@ public class veiculosEletricos{
         this.aut_max = aut_max;
     }
     
-    public static void main(String[] args) {
-        //testes
-        addCarro();
-        
-        listarCarros();
-
-        removeCarro();
-
-        listarCarros();
-    }
 }
