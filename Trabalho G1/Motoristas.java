@@ -6,7 +6,7 @@ public class Motoristas{
     protected String nome;
     protected int numId;
     protected double numCarteira;
-    protected String experiencia; 
+    protected String experiencia; //iniciante, intermediário, avançado
     
     protected static List <Motoristas> motoristasCadastrados = new ArrayList<>();
     
@@ -50,12 +50,6 @@ public class Motoristas{
             }
         }
     }
-    
- 	public static void main(String[] args) {
-		cadMotorista();
-		
-		exibirMotoristas();
-	}
 	
 	public int getNumId() {
         return numId;
