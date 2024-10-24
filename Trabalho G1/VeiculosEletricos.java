@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class veiculosEletricos{
+public class VeiculosEletricos{
     protected int id_num;
     protected String marca;
     protected String modelo;
@@ -10,9 +10,9 @@ public class veiculosEletricos{
     protected double cap_total_bat;
     protected double aut_max;
     
-	protected static List<veiculosEletricos> frota = new ArrayList<>();
+	protected static List<VeiculosEletricos> frota = new ArrayList<>();
 
-    public veiculosEletricos(int id_num, String marca, String modelo, int ano_fab, double cap_total_bat, double aut_max) {
+    public VeiculosEletricos(int id_num, String marca, String modelo, int ano_fab, double cap_total_bat, double aut_max) {
         this.id_num = id_num;
         this.marca = marca;
         this.modelo = modelo;
@@ -48,7 +48,7 @@ public class veiculosEletricos{
         System.out.println("Digite a autonomia máxima do veículo: ");
         double cap_total_bat = scanner.nextDouble();
         
-        veiculosEletricos novoVeiculo = new veiculosEletricos(id_num, marca, modelo, ano_fab, cap_total_bat, aut_max);
+        VeiculosEletricos novoVeiculo = new VeiculosEletricos(id_num, marca, modelo, ano_fab, cap_total_bat, aut_max);
 
         frota.add(novoVeiculo);
         System.out.println("Veículo adicionado à frota: " + novoVeiculo.id_num);
@@ -62,7 +62,7 @@ public class veiculosEletricos{
         int id_num = scanner.nextInt();
 
         boolean encontrado = false;
-        for (veiculosEletricos veiculo : frota) {
+        for (VeiculosEletricos veiculo : frota) {
             if (veiculo.getId_Num() == id_num) {
                 frota.remove(veiculo);
                 System.out.println("Veículo removido: " + veiculo.marca + " " + veiculo.modelo);
@@ -81,7 +81,7 @@ public class veiculosEletricos{
             System.out.println("Nenhum vaículo na frota.");
         } else {
             System.out.println("Veículos da frota:");
-            for (veiculosEletricos veiculos : frota) {
+            for (VeiculosEletricos veiculos : frota) {
                 System.out.println("ID: " + veiculos.id_num + "| Marca: " + veiculos.marca + "| Modelo: " + veiculos.modelo + "| Ano de fabricação: " + veiculos.ano_fab + "| Capacidade total da bateria: " + veiculos.cap_total_bat + "| Autonomia máxima: " + veiculos.aut_max);
             } 
         }
