@@ -3,7 +3,6 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         //Verificador verificador = new Verificador();
-        //veiculosEletricos
         Scanner scanner = new Scanner(System.in);
         int opc;
 
@@ -24,13 +23,13 @@ public class Main {
             
             switch (opc) {
                 case 1:
-                    //verificador.separador();
+                    verificador.separador();
                     break;
                 case 2:
-                    veiculosEletricos.removeCarro(); 
+                    VeiculosEletricos.removeCarro(); 
                     break;
                 case 3:
-                    veiculosEletricos.listarCarros(); 
+                    VeiculosEletricos.listarCarros(); 
                     break;
                 case 4:
                     Motoristas.cadMotorista(); 
@@ -48,7 +47,7 @@ public class Main {
                     CarregamentoBaterias.selecionarVeiculo();
                     break;
                 case 9:
-                    if (!veiculosEletricos.frota.isEmpty()) {
+                    if (!VeiculosEletricos.frota.isEmpty()) {
                         CarregamentoBaterias carregamento = new CarregamentoBaterias(veiculosEletricos.frota.get(0)); // Usa o primeiro veículo ou peça ao usuário para escolher
                         carregamento.consultarHistoricoRecargas(); 
                     } else {
