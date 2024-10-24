@@ -2,6 +2,8 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        //Verificador verificador = new Verificador();
+        //veiculosEletricos
         Scanner scanner = new Scanner(System.in);
         int opc;
 
@@ -22,7 +24,7 @@ public class Main {
             
             switch (opc) {
                 case 1:
-                    Verificador.separador();
+                    //verificador.separador();
                     break;
                 case 2:
                     veiculosEletricos.removeCarro(); 
