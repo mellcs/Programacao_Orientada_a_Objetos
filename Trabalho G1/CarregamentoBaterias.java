@@ -5,21 +5,21 @@ import java.util.Scanner;
 
 public class CarregamentoBaterias {
     private static List<String> historicoRecargas = new ArrayList<>();
-    private veiculosEletricos veiculo;
+    private VeiculosEletricos veiculo;
 
-    public CarregamentoBaterias(veiculosEletricos veiculo) {
+    public CarregamentoBaterias(VeiculosEletricos veiculo) {
         this.veiculo = veiculo;
     }
 
     public static void selecionarVeiculo() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Selecione um veículo da lista:");
-        veiculosEletricos.listarCarros(); 
+        VeiculosEletricos.listarCarros(); 
 
         System.out.print("Digite o ID do veículo escolhido: ");
         int idEscolhido = scanner.nextInt();
 
-        for (veiculosEletricos veiculo : veiculosEletricos.frota) {
+        for (VeiculosEletricos veiculo : VeiculosEletricos.frota) {
             if (veiculo.getId_Num() == idEscolhido) {
                 CarregamentoBaterias carregamento = new CarregamentoBaterias(veiculo);
                 carregamento.registrarRecarga();
