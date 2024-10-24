@@ -2,9 +2,9 @@ import java.util.List;
 
 public class Relatorio {
 
-    public void autonomiaCarros(List<VeiculoEletrico> veiculos) {
+    public void autonomiaCarros(List<VeiculosEletricos> veiculos) {
         System.out.println("Carros com media inferior a 20%:");
-        for (VeiculoEletrico veiculo : veiculos) {
+        for (VeiculosEletricos veiculo : veiculos) {
             if (veiculo.getAutonomiaMax() < 20) {
                 System.out.println("Placa: " + veiculo.getIdNum() + ", Autonomia do Carro: " + veiculo.getAutonomiaMax() + "%");
             }
