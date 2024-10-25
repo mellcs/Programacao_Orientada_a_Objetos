@@ -2,15 +2,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class VeiculosEletricos{
+public class VeiculosEletricos {
     protected int id_num;
     protected String marca;
     protected String modelo;
     protected int ano_fab;
     protected double cap_total_bat;
     protected double aut_max;
-    
-	protected static List<VeiculosEletricos> frota = new ArrayList<>();
 
     public VeiculosEletricos(int id_num, String marca, String modelo, int ano_fab, double cap_total_bat, double aut_max) {
         this.id_num = id_num;
@@ -20,14 +18,14 @@ public class VeiculosEletricos{
         this.cap_total_bat = cap_total_bat;
         this.aut_max = aut_max;
     }
-    
-    public static void addCarro(){
+
+    public void addCarro(List<VeiculosEletricos> frota) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Digite o ID do veículo: ");
         int id_num = scanner.nextInt();
 
-        scanner.nextLine(); 
+        scanner.nextLine();
 
         System.out.println("Digite a marca do veículo: ");
         String marca = scanner.nextLine();
@@ -37,25 +35,24 @@ public class VeiculosEletricos{
 
         System.out.println("Digite o ano de fabricação do veículo: ");
         int ano_fab = scanner.nextInt();
-        
-        scanner.nextLine(); 
-        
-        System.out.println("Digite a capacidade total da bateria do veículo: ");
-        double aut_max = scanner.nextDouble();
-        
+
         scanner.nextLine();
-        
-        System.out.println("Digite a autonomia máxima do veículo: ");
+
+        System.out.println("Digite a capacidade total da bateria do veículo: ");
         double cap_total_bat = scanner.nextDouble();
-        
+
+        scanner.nextLine();
+
+        System.out.println("Digite a autonomia máxima do veículo: ");
+        double aut_max = scanner.nextDouble();
+
         VeiculosEletricos novoVeiculo = new VeiculosEletricos(id_num, marca, modelo, ano_fab, cap_total_bat, aut_max);
 
         frota.add(novoVeiculo);
         System.out.println("Veículo adicionado à frota: " + novoVeiculo.id_num);
     }
-    
-    
-    public static void removeCarro() {
+
+    public void removeCarro(List<VeiculosEletricos> frota) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Digite o ID do veículo que deseja remover: ");
@@ -75,20 +72,19 @@ public class VeiculosEletricos{
             System.out.println("Veículo não encontrado.");
         }
     }
-    
-    public static void listarCarros(){
+
+    public void listarCarros(List<VeiculosEletricos> frota) {
         if (frota.isEmpty()) {
-            System.out.println("Nenhum vaículo na frota.");
+            System.out.println("Nenhum veículo na frota.");
         } else {
             System.out.println("Veículos da frota:");
             for (VeiculosEletricos veiculos : frota) {
                 System.out.println("ID: " + veiculos.id_num + "| Marca: " + veiculos.marca + "| Modelo: " + veiculos.modelo + "| Ano de fabricação: " + veiculos.ano_fab + "| Capacidade total da bateria: " + veiculos.cap_total_bat + "| Autonomia máxima: " + veiculos.aut_max);
-            } 
+            }
         }
     }
-    
-    //get e set
-    
+
+    // Getters e setters
     public int getId_Num() {
         return id_num;
     }
@@ -120,7 +116,7 @@ public class VeiculosEletricos{
     public void setAno_Fab(int ano_fab) {
         this.ano_fab = ano_fab;
     }
-    
+
     public double getCap_Total_Bat() {
         return cap_total_bat;
     }
@@ -136,5 +132,4 @@ public class VeiculosEletricos{
     public void setAut_Max(double aut_max) {
         this.aut_max = aut_max;
     }
-    
 }
