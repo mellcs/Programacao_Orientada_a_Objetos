@@ -2,24 +2,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Motoristas{
+public class Motoristas {
     protected String nome;
     protected int numId;
     protected double numCarteira;
-    protected String experiencia; //iniciante, intermediário, avançado
-    
-    protected static List <Motoristas> motoristasCadastrados = new ArrayList<>();
-    
-    public Motoristas(String nome, int numId, double numCarteira, String experiencia){
+    protected String experiencia; // iniciante, intermediário, avançado
+
+    protected List<Motoristas> motoristasCadastrados = new ArrayList<>();
+
+    public Motoristas(String nome, int numId, double numCarteira, String experiencia) {
         this.nome = nome;
         this.numId = numId;
         this.numCarteira = numCarteira;
         this.experiencia = experiencia;
     }
-    
-    public static void cadMotorista(){
+
+    public void cadMotorista() {
         Scanner scanner = new Scanner(System.in);
-        
+
         System.out.print("Digite o nome do motorista: ");
         String nome = scanner.nextLine();
 
@@ -28,30 +28,33 @@ public class Motoristas{
 
         System.out.print("Digite o número da carteira de motorista: ");
         double numCarteira = scanner.nextDouble();
-        
+
         scanner.nextLine();
 
         System.out.print("Digite o nível de experiência do motorista (iniciante, intermediário ou avançado): ");
         String experiencia = scanner.nextLine();
-        
+
         Motoristas novoMotorista = new Motoristas(nome, numId, numCarteira, experiencia);
-        
+
         motoristasCadastrados.add(novoMotorista);
         System.out.println("Motorista cadastrado com sucesso: " + novoMotorista.nome);
     }
-    
-    public static void exibirMotoristas(){
-        if (motoristasCadastrados.isEmpty()){
+
+    public void exibirMotoristas() {
+        if (motoristasCadastrados.isEmpty()) {
             System.out.println("Nenhum motorista cadastrado no momento.");
-        }else{
+        } else {
             System.out.println("Motoristas cadastrados:");
             for (Motoristas motorista : motoristasCadastrados) {
-                System.out.println("Nome: " + motorista.nome + "| Identificação: " + motorista.numId + "| Número da carteira: " + motorista.numCarteira + "| Nível de experiência do motorista: " + motorista.experiencia);
+                System.out.println("Nome: " + motorista.nome + "| Identificação: " + motorista.numId
+                        + "| Número da carteira: " + motorista.numCarteira
+                        + "| Nível de experiência do motorista: " + motorista.experiencia);
             }
         }
     }
-	
-	public int getNumId() {
+
+    // Getters e Setters
+    public int getNumId() {
         return numId;
     }
 
