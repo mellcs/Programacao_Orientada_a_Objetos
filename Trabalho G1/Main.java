@@ -1,11 +1,19 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        //Verificador verificador = new Verificador();
         Scanner scanner = new Scanner(System.in);
         int opc;
 
+        List<VeiculosEletricos> frota = new ArrayList<>();
+        
+        Motoristas motoristas = new Motoristas(null, 0, 0.0, null); // Ou qualquer outro método para gerenciar motoristas
+        Eletropostos eletropostos = new Eletropostos(0, null, 0, 0.0); // Da mesma forma para eletropostos
+        CarregamentoBaterias carregamento = new CarregamentoBaterias(); // Instância única
+        VeiculosEletricos veiculosEletricos = new VeiculosEletricos(0, "", "", 0, 0.0, 0.0);
+        
         do {
             System.out.println(">>> MENU <<<");
             System.out.println("1 - Cadastrar carro.");
@@ -23,36 +31,31 @@ public class Main {
             
             switch (opc) {
                 case 1:
-                    verificador.separador();
+                    veiculosEletricos.addCarro(frota);
                     break;
                 case 2:
-                    VeiculosEletricos.removeCarro(); 
+                    veiculosEletricos.removeCarro(frota); 
                     break;
                 case 3:
-                    VeiculosEletricos.listarCarros(); 
+                    veiculosEletricos.listarCarros(frota); 
                     break;
                 case 4:
-                    Motoristas.cadMotorista(); 
+                    motoristas.cadMotorista(); 
                     break;
                 case 5:
-                    Motoristas.exibirMotoristas(); 
+                    motoristas.exibirMotoristas(); 
                     break;
                 case 6:
-                    Eletropostos.cadastrar(); 
+                    eletropostos.cadastrar(); 
                     break;
                 case 7:
-                    Eletropostos.exibirPosto(); 
+                    eletropostos.exibirPosto(); 
                     break;
                 case 8:
-                    CarregamentoBaterias.selecionarVeiculo();
+                    carregamento.selecionarVeiculo(frota); 
                     break;
                 case 9:
-                    if (!VeiculosEletricos.frota.isEmpty()) {
-                        CarregamentoBaterias carregamento = new CarregamentoBaterias(veiculosEletricos.frota.get(0)); // Usa o primeiro veículo ou peça ao usuário para escolher
-                        carregamento.consultarHistoricoRecargas(); 
-                    } else {
-                        System.out.println("Nenhum veículo cadastrado para consultar histórico.");
-                    }
+                    carregamento.consultarHistoricoRecargas(); 
                     break;
                 case 0:
                     System.out.println("Saindo do sistema...");
