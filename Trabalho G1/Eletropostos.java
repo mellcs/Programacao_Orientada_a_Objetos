@@ -3,13 +3,12 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Eletropostos {
-
     protected int id;
     protected String local;
     protected int vagas;
     protected double tempoCarga;
 
-    protected static List<Eletropostos> eletropostosCadastrados = new ArrayList<>();
+    protected List<Eletropostos> eletropostosCadastrados = new ArrayList<>();
 
     public Eletropostos(int id, String local, int vagas, double tempoCarga) {
         this.id = id;
@@ -18,13 +17,13 @@ public class Eletropostos {
         this.tempoCarga = tempoCarga;
     }
 
-    public static void cadastrar() {
+    public void cadastrar() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Digite o ID do Eletroposto: ");
         int id = scanner.nextInt();
 
-        scanner.nextLine(); //?
+        scanner.nextLine(); // Corrigindo o scanner para receber o próximo input corretamente
 
         System.out.print("Digite a localização do Eletroposto: ");
         String local = scanner.nextLine();
@@ -41,7 +40,7 @@ public class Eletropostos {
         System.out.println("Eletroposto cadastrado com sucesso: " + novoEletroposto.local);
     }
 
-    public static void exibirPosto() {
+    public void exibirPosto() {
         List<Eletropostos> eletropostosDisponiveis = new ArrayList<>();
         for (Eletropostos eletroposto : eletropostosCadastrados) {
             if (eletroposto.tempoCarga > 0) {
@@ -59,6 +58,7 @@ public class Eletropostos {
         }
     }
 
+    // Getters e Setters
     public int getId() {
         return id;
     }
