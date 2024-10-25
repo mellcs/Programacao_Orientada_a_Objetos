@@ -4,25 +4,26 @@ import java.util.List;
 import java.util.Scanner;
 
 public class CarregamentoBaterias {
-    private static List<String> historicoRecargas = new ArrayList<>();
-    private VeiculosEletricos veiculo;
+    private List<String> historicoRecargas; 
+    private VeiculosEletricos veiculo; 
 
-    public CarregamentoBaterias(VeiculosEletricos veiculo) {
-        this.veiculo = veiculo;
+    public CarregamentoBaterias() {
+        this.historicoRecargas = new ArrayList<>(); 
     }
 
-    public static void selecionarVeiculo() {
+    public void selecionarVeiculo(List<VeiculosEletricos> frota) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Selecione um veículo da lista:");
-        VeiculosEletricos.listarCarros(); 
 
+        VeiculosEletricos veiculosEletricos = new VeiculosEletricos(0, "", "", 0, 0.0, 0.0);
+        veiculosEletricos.listarCarros(frota); 
         System.out.print("Digite o ID do veículo escolhido: ");
         int idEscolhido = scanner.nextInt();
 
-        for (VeiculosEletricos veiculo : VeiculosEletricos.frota) {
-            if (veiculo.getId_Num() == idEscolhido) {
-                CarregamentoBaterias carregamento = new CarregamentoBaterias(veiculo);
-                carregamento.registrarRecarga();
+        for (VeiculosEletricos veiculo : frota) {
+            if (veiculo.getId_Num() == idEscolhido) { 
+                this.veiculo = veiculo;
+                registrarRecarga(); 
                 return;
             }
         }
@@ -31,23 +32,30 @@ public class CarregamentoBaterias {
     }
 
     public void registrarRecarga() {
+        if (veiculo == null) {
+            System.out.println("Nenhum veículo selecionado.");
+            return;
+        }
+
         Scanner scanner = new Scanner(System.in);
         System.out.println("Digite a quantidade de recarga em kWh: ");
         double quantidadeRecarga = scanner.nextDouble();
-        scanner.nextLine(); 
+        scanner.nextLine();
 
         System.out.println("Digite o nome do eletroposto utilizado: ");
         String eletropostoUtilizado = scanner.nextLine();
 
-        if (veiculo.aut_max + quantidadeRecarga > veiculo.cap_total_bat) {
-            veiculo.aut_max = veiculo.cap_total_bat;
+        if (veiculo.getAut_Max() + quantidadeRecarga > veiculo.getCap_Total_Bat()) {
+            veiculo.setAut_Max(veiculo.getCap_Total_Bat()); 
         } else {
-            veiculo.aut_max += quantidadeRecarga;
+            veiculo.setAut_Max(veiculo.getAut_Max() + quantidadeRecarga);
         }
 
         Date dataRecarga = new Date();
-        String registro = "Data: " + dataRecarga.toString() + ", Eletroposto: " + eletropostoUtilizado + ", Quantidade Recarga: " + quantidadeRecarga + " kWh, Autonomia Atualizada: " + veiculo.aut_max + " km";
-        historicoRecargas.add(registro);
+        String registro = "Data: " + dataRecarga.toString() + ", Eletroposto: " + eletropostoUtilizado + 
+                         ", Quantidade Recarga: " + quantidadeRecarga + " kWh, " + 
+                         "Autonomia Atualizada: " + veiculo.getAut_Max() + " km";
+        historicoRecargas.add(registro); 
 
         System.out.println("Recarga registrada com sucesso!");
     }
