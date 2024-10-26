@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CarroCompacto extends VeiculosEletricos {
 
@@ -6,10 +8,8 @@ public class CarroCompacto extends VeiculosEletricos {
         super(id_num, marca, modelo, ano_fab, cap_total_bat, aut_max);
     }
 
-    public static void cadastrar() {
-        Scanner scanner = new Scanner(System.in);
-
+    public void cadastrar(List<VeiculosEletricos> frota) {
         System.out.println("Cadastro de Carro Compacto:");
-        VeiculosEletricos.addCarro();  // Utiliza o método da classe mãe
+        addCarro(frota);  
     }
 }
