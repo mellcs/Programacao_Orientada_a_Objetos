@@ -9,7 +9,6 @@ public class CarroCompacto extends VeiculosEletricos {
     }
 
     public void cadastrar(List<VeiculosEletricos> frota) {
-        System.out.println("Cadastro de Carro Compacto:");
         addCarro(frota);  
     }
 }
