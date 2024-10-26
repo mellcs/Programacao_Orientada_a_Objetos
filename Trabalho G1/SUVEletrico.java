@@ -9,7 +9,6 @@ public class SUVEletrico extends VeiculosEletricos {
     }
 
     public void cadastrar(List<VeiculosEletricos> frota) {
-        System.out.println("Cadastro de SUV Elétrico:");
         addCarro(frota); 
     }
 }
