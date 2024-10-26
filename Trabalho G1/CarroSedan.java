@@ -9,7 +9,6 @@ public class CarroSedan extends VeiculosEletricos {
     }
 
     public void cadastrar(List<VeiculosEletricos> frota) {
-        System.out.println("Cadastro de Carro Sedan:");
         addCarro(frota); 
     }
 }
