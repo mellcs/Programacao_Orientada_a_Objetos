@@ -8,13 +8,14 @@ public class Main {
         int opc;
 
         List<VeiculosEletricos> frota = new ArrayList<>();
-        List<Viagem> viagens = new ArrayList<>(); 
-
-        Motoristas motoristas = new Motoristas(null, 0, 0.0, null);
-        Eletropostos eletropostos = new Eletropostos(0, null, 0, 0.0);
+        List<Motoristas> motoristasCadastrados = new ArrayList<>();
+        List<Eletropostos> eletropostosCadastrados = new ArrayList<>();
+        
+        VeiculosEletricos veiculos = new VeiculosEletricos(0, null, null, 0, 0.0, 0.0);
+        Motoristas motoristas = new Motoristas(null, 0, 0.0, null); 
+        Eletropostos eletropostos = new Eletropostos(0, null, 0, 0.0); 
         CarregamentoBaterias carregamento = new CarregamentoBaterias();
-        VeiculosEletricos veiculosEletricos = new VeiculosEletricos(0, "", "", 0, 0.0, 0.0);
-        Relatorio relatorio = new Relatorio();
+        Viagens viagem = new Viagens(0.0, null, eletropostosCadastrados,frota);
 
         do {
             System.out.println(">>> MENU <<<");
@@ -25,71 +26,63 @@ public class Main {
             System.out.println("5 - Listar motoristas.");
             System.out.println("6 - Cadastrar eletroposto.");
             System.out.println("7 - Listar eletropostos.");
-            System.out.println("8 - Registrar recarga.");
-            System.out.println("9 - Histórico de recargas.");
-            System.out.println("10 - Relatório de autonomia dos carros.");
-            System.out.println("11 - Relatório de viagens por motorista.");
-            System.out.println("12 - Histórico de recargas de um veículo.");
-            System.out.println("13 - Relatório de carros que precisam de manutenção.");
+            System.out.println("8 - Registrar viagem.");
+            System.out.println("9 - Registrar recarga.");
+            System.out.println("10 - Histórico de recargas.");
             System.out.println("0 - Sair.");
             System.out.print("O que você gostaria de fazer: ");
             opc = scanner.nextInt();
             
             switch (opc) {
                 case 1:
-                    veiculosEletricos.addCarro(frota);
+                    System.out.print("Digite a autonomia máxima: ");
+                    double autonomia = scanner.nextDouble();
+                    System.out.print("Digite o tempo médio de carregamento: ");
+                    int tempoCarga = scanner.nextInt();
+
+                    VeiculosEletricos novoVeiculo = null;
+
+                    if (autonomia <= 200 && tempoCarga == 4) {
+                        novoVeiculo = new CarroCompacto(0, "", "", 0, 0.0, autonomia);
+                        System.out.println("Você está adicionando um carro compacto à frota.");
+                    } else if (autonomia <= 400 && tempoCarga == 6) {
+                        novoVeiculo = new CarroSedan(0, "", "", 0, 0.0, autonomia);
+                        System.out.println("Você está adicionando um carro sedan à frota.");
+                    } else if (autonomia > 400 && tempoCarga == 8) {
+                        novoVeiculo = new SUVEletrico(0, "", "", 0, 0.0, autonomia);
+                        System.out.println("Você está adicionando um SUV elétrico à frota.");
+                    } else {
+                        System.out.println("Os parâmetros fornecidos não correspondem a nenhum tipo de carro elétrico.");
+                        break;
+                    }
+
+                    novoVeiculo.addCarro(frota); // Adiciona o novo veículo à frota
                     break;
                 case 2:
-                    veiculosEletricos.removeCarro(frota);
+                    veiculos.removeCarro(frota); 
                     break;
                 case 3:
-                    veiculosEletricos.listarCarros(frota);
+                    veiculos.listarCarros(frota); 
                     break;
                 case 4:
-                    motoristas.cadMotorista();
+                    motoristas.cadMotorista(motoristasCadastrados);
                     break;
                 case 5:
-                    motoristas.exibirMotoristas();
+                    motoristas.exibirMotoristas(motoristasCadastrados); 
                     break;
                 case 6:
-                    eletropostos.cadastrar();
+                    eletropostos.cadastrar(eletropostosCadastrados); 
                     break;
                 case 7:
-                    eletropostos.exibirPosto();
+                    eletropostos.exibirPosto(eletropostosCadastrados); 
                     break;
                 case 8:
-                    carregamento.selecionarVeiculo(frota);
-                    break;
+                    viagem.comecarViagem();
                 case 9:
-                    carregamento.consultarHistoricoRecargas();
+                    carregamento.selecionarVeiculo(frota); 
                     break;
-                case 10: 
-                    relatorio.autonomiaCarros(frota);
-                    break;
-                case 11: 
-                    System.out.print("Digite o nome do motorista para o relatório: ");
-                    scanner.nextLine(); 
-                    String nomeMotorista = scanner.nextLine();
-                    Motoristas motorista = motoristas.buscarPorNome(nomeMotorista); 
-                    if (motorista != null) {
-                        relatorio.relatorioMotorista(motorista, viagens);
-                    } else {
-                        System.out.println("Motorista não encontrado.");
-                    }
-                    break;
-                case 12: 
-                    System.out.print("Digite a placa do veículo para o histórico: ");
-                    scanner.nextLine(); 
-                    String placaVeiculo = scanner.nextLine();
-                    VeiculosEletricos veiculo = veiculosEletricos.buscarPorPlaca(frota, placaVeiculo); 
-                    if (veiculo != null) {
-                        relatorio.historicoRecarga(veiculo, viagens);
-                    } else {
-                        System.out.println("Veículo não encontrado.");
-                    }
-                    break;
-                case 13: // Relatório de carros que precisam de manutenção
-                    relatorio.carrosManutencao(frota, 5000.0, 20.0); // Ex: de quilometragem e bateria
+                case 10:
+                    carregamento.consultarHistoricoRecargas(); 
                     break;
                 case 0:
                     System.out.println("Saindo do sistema...");
@@ -101,7 +94,6 @@ public class Main {
             System.out.println();
         } while (opc != 0);
 
-        scanner.close();
+        scanner.close(); 
     }
 }
-
