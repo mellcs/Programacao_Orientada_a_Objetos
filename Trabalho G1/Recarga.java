@@ -1,16 +1,16 @@
 public class Recarga {
-    private Eletroposto eletroposto;
+    private Eletropostos eletropostos;
     private double quantidadeRecarga;
     private String dataHora;
 
-    public Recarga(Eletroposto eletroposto, double quantidadeRecarga, String dataHora) {
-        this.eletroposto = eletroposto;
+    public Recarga(Eletropostos eletropostos, double quantidadeRecarga, String dataHora) {
+        this.eletropostos = eletropostos;
         this.quantidadeRecarga = quantidadeRecarga;
         this.dataHora = dataHora;
     }
 
-    public Eletroposto getEletroposto() {
-        return eletroposto;
+    public Eletropostos getEletropostos() {
+        return eletropostos;
     }
 
     public double getQuantidadeRecarga() {
