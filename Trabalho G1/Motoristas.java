@@ -7,6 +7,7 @@ public class Motoristas {
     protected int numId;
     protected double numCarteira;
     protected String experiencia; // iniciante, intermediário, avançado
+    protected List<Viagens> viagens;
 
     protected List<Motoristas> motoristasCadastrados = new ArrayList<>();
 
@@ -15,6 +16,7 @@ public class Motoristas {
         this.numId = numId;
         this.numCarteira = numCarteira;
         this.experiencia = experiencia;
+        this.viagens = new ArrayList<>();
     }
 
     public void cadMotorista() {
@@ -85,4 +87,9 @@ public class Motoristas {
     public void setExperiencia(String experiencia) {
         this.experiencia = experiencia;
     }
+    
+    public List<Viagens> getViagens() {
+        return viagens;
+    }
 }
+  
