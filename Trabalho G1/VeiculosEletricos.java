@@ -9,6 +9,7 @@ public class VeiculosEletricos {
     protected int ano_fab;
     protected double cap_total_bat;
     protected double aut_max;
+    protected double quilometragem;
 
     public VeiculosEletricos(int id_num, String marca, String modelo, int ano_fab, double cap_total_bat, double aut_max) {
         this.id_num = id_num;
@@ -17,6 +18,7 @@ public class VeiculosEletricos {
         this.ano_fab = ano_fab;
         this.cap_total_bat = cap_total_bat;
         this.aut_max = aut_max;
+        this.quilometragem = 0;
     }
 
     public void addCarro(List<VeiculosEletricos> frota) {
@@ -131,5 +133,9 @@ public class VeiculosEletricos {
 
     public void setAut_Max(double aut_max) {
         this.aut_max = aut_max;
+    }
+    
+    public double getQuilometragem() {
+        return quilometragem; // Método para obter a quilometragem
     }
 }
