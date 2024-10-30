@@ -15,7 +15,7 @@ public class Main {
         Motoristas motoristas = new Motoristas(null, 0, 0.0, null); 
         Eletropostos eletropostos = new Eletropostos(0, null, 0, 0.0); 
         CarregamentoBaterias carregamento = new CarregamentoBaterias();
-        Viagens viagem = new Viagens(0.0, null, eletropostosCadastrados,frota);
+        Viagens viagem = new Viagens(0.0, "destino", motoristas, eletropostosCadastrados,frota);
 
         do {
             System.out.println(">>> MENU <<<");
@@ -65,16 +65,16 @@ public class Main {
                     veiculos.listarCarros(frota); 
                     break;
                 case 4:
-                    motoristas.cadMotorista(motoristasCadastrados);
+                    motoristas.cadMotorista();
                     break;
                 case 5:
-                    motoristas.exibirMotoristas(motoristasCadastrados); 
+                    motoristas.exibirMotoristas(); 
                     break;
                 case 6:
-                    eletropostos.cadastrar(eletropostosCadastrados); 
+                    eletropostos.cadastrar(); 
                     break;
                 case 7:
-                    eletropostos.exibirPosto(eletropostosCadastrados); 
+                    eletropostos.exibirPosto(); 
                     break;
                 case 8:
                     viagem.comecarViagem();
