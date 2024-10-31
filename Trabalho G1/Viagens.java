@@ -1,20 +1,22 @@
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
 public class Viagens {
-    protected double quilometragem; // Quilometragem total da viagem
+    protected double quilometragem; 
     protected String destino;
     private VeiculosEletricos veiculo;
-    private Motoristas motorista; // Motorista responsável pela viagem
+    private Motoristas motorista; 
     private List<Eletropostos> eletropostosCadastrados;
     private List<VeiculosEletricos> frota;
     private List<Recarga> recargas;
 
     public Viagens(double quilometragem, String destino, Motoristas motorista, List<Eletropostos> eletropostosCadastrados, List<VeiculosEletricos> frota) {
-        this.quilometragem = quilometragem; // Inicializa com a quilometragem fornecida
+        this.quilometragem = quilometragem; 
         this.destino = destino;
-        this.motorista = motorista; // Inicializa o motorista
+        this.motorista = motorista;
         this.eletropostosCadastrados = eletropostosCadastrados;
         this.frota = frota;
         this.recargas = new ArrayList<>();
@@ -88,6 +90,19 @@ public class Viagens {
         double novaAutonomia = veiculo.getAut_Max() - quilometragemPercorrida;
         veiculo.setAut_Max(novaAutonomia);
     }
+    
+    public void registrarRecarga(Eletropostos eletroposto, double quantidade) {
+        
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        String dataFormatada = formato.format(new Date()); 
+
+        Recarga novaRecarga = new Recarga(eletroposto, quantidade, dataFormatada); 
+        recargas.add(novaRecarga);
+        veiculo.setAut_Max(veiculo.getAut_Max() + quantidade); 
+
+        
+        motorista.adicionarRecarga(novaRecarga); 
+    }
 
     // Getters e Setters
     public double getQuilometragem() {
@@ -115,11 +130,11 @@ public class Viagens {
     }
     
     public VeiculosEletricos getVeiculo() {
-        return veiculo; // Método para obter o veículo
+        return veiculo; 
     }
 
     public double getDistancia() {
-        return quilometragem; // Método para obter a distância
+        return quilometragem; 
     }
 
     public List<Recarga> getRecarga() {
