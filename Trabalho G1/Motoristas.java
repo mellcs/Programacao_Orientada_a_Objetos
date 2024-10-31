@@ -6,10 +6,9 @@ public class Motoristas {
     protected String nome;
     protected int numId;
     protected double numCarteira;
-    protected String experiencia; // iniciante, intermediário, avançado
+    protected String experiencia; 
     protected List<Viagens> viagens;
-
-    protected List<Motoristas> motoristasCadastrados = new ArrayList<>();
+    protected List<Recarga> recargas; 
 
     public Motoristas(String nome, int numId, double numCarteira, String experiencia) {
         this.nome = nome;
@@ -17,6 +16,7 @@ public class Motoristas {
         this.numCarteira = numCarteira;
         this.experiencia = experiencia;
         this.viagens = new ArrayList<>();
+        this.recargas = new ArrayList<>(); 
     }
 
     public void cadMotorista() {
@@ -38,21 +38,26 @@ public class Motoristas {
 
         Motoristas novoMotorista = new Motoristas(nome, numId, numCarteira, experiencia);
 
-        motoristasCadastrados.add(novoMotorista);
+        
         System.out.println("Motorista cadastrado com sucesso: " + novoMotorista.nome);
     }
 
     public void exibirMotoristas() {
-        if (motoristasCadastrados.isEmpty()) {
+        if (recargas.isEmpty()) {
             System.out.println("Nenhum motorista cadastrado no momento.");
         } else {
             System.out.println("Motoristas cadastrados:");
-            for (Motoristas motorista : motoristasCadastrados) {
-                System.out.println("Nome: " + motorista.nome + "| Identificação: " + motorista.numId
-                        + "| Número da carteira: " + motorista.numCarteira
-                        + "| Nível de experiência do motorista: " + motorista.experiencia);
+            for (Recarga recarga : recargas) {
+                System.out.println("Nome: " + nome + "| Identificação: " + numId
+                        + "| Número da carteira: " + numCarteira
+                        + "| Nível de experiência do motorista: " + experiencia);
             }
         }
+    }
+
+    public void adicionarRecarga(Recarga recarga) {
+        recargas.add(recarga); 
+        System.out.println("Recarga registrada: " + recarga.getQuantidadeRecarga() + " kWh em " + recarga.getDataHora());
     }
 
     // Getters e Setters
@@ -91,5 +96,8 @@ public class Motoristas {
     public List<Viagens> getViagens() {
         return viagens;
     }
+    
+    public List<Recarga> getRecargas() {
+        return recargas; 
+    }
 }
-  
