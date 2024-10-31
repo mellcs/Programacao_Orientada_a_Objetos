@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -21,43 +20,34 @@ public class VeiculosEletricos {
         this.quilometragem = 0;
     }
 
-    public void addCarro(List<VeiculosEletricos> frota) {
+    public void addCarro(List<VeiculosEletricos> frota, VeiculosEletricos veiculo) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Digite o ID do veículo: ");
-        int id_num = scanner.nextInt();
+        System.out.print("Digite o ID do veículo: ");
+        veiculo.setId_Num(scanner.nextInt());
 
-        scanner.nextLine();
+        scanner.nextLine(); // Limpar o buffer
 
-        System.out.println("Digite a marca do veículo: ");
-        String marca = scanner.nextLine();
+        System.out.print("Digite a marca do veículo: ");
+        veiculo.setMarca(scanner.nextLine());
 
-        System.out.println("Digite o modelo do veículo: ");
-        String modelo = scanner.nextLine();
+        System.out.print("Digite o modelo do veículo: ");
+        veiculo.setModelo(scanner.nextLine());
 
-        System.out.println("Digite o ano de fabricação do veículo: ");
-        int ano_fab = scanner.nextInt();
+        System.out.print("Digite o ano de fabricação do veículo: ");
+        veiculo.setAno_Fab(scanner.nextInt());
 
-        scanner.nextLine();
+        System.out.print("Digite a capacidade total da bateria do veículo: ");
+        veiculo.setCap_Total_Bat(scanner.nextDouble());
 
-        System.out.println("Digite a capacidade total da bateria do veículo: ");
-        double cap_total_bat = scanner.nextDouble();
-
-        scanner.nextLine();
-
-        System.out.println("Digite a autonomia máxima do veículo: ");
-        double aut_max = scanner.nextDouble();
-
-        VeiculosEletricos novoVeiculo = new VeiculosEletricos(id_num, marca, modelo, ano_fab, cap_total_bat, aut_max);
-
-        frota.add(novoVeiculo);
-        System.out.println("Veículo adicionado à frota: " + novoVeiculo.id_num);
+        frota.add(veiculo); // Adiciona o veículo à frota
+        System.out.println("Veículo adicionado à frota: " + veiculo.getId_Num());
     }
 
     public void removeCarro(List<VeiculosEletricos> frota) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Digite o ID do veículo que deseja remover: ");
+        System.out.print("Digite o ID do veículo que deseja remover: ");
         int id_num = scanner.nextInt();
 
         boolean encontrado = false;
@@ -134,8 +124,8 @@ public class VeiculosEletricos {
     public void setAut_Max(double aut_max) {
         this.aut_max = aut_max;
     }
-    
+
     public double getQuilometragem() {
-        return quilometragem; 
+        return quilometragem;
     }
 }
