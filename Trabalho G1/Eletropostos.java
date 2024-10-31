@@ -23,7 +23,7 @@ public class Eletropostos {
         System.out.print("Digite o ID do Eletroposto: ");
         int id = scanner.nextInt();
 
-        scanner.nextLine(); // Corrigindo o scanner para receber o próximo input corretamente
+        scanner.nextLine();
 
         System.out.print("Digite a localização do Eletroposto: ");
         String local = scanner.nextLine();
