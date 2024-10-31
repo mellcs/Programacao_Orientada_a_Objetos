@@ -17,27 +17,25 @@ public class Eletropostos {
         this.tempoCarga = tempoCarga;
     }
 
-    public void cadastrar() {
+    public void cadastrar(Eletropostos eletroposto) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Digite o ID do Eletroposto: ");
-        int id = scanner.nextInt();
+        eletroposto.setId(scanner.nextInt());
 
-        scanner.nextLine();
+        scanner.nextLine(); // Limpar o buffer
 
         System.out.print("Digite a localização do Eletroposto: ");
-        String local = scanner.nextLine();
+        eletroposto.setLocal(scanner.nextLine());
 
         System.out.print("Digite o número de vagas disponíveis: ");
-        int vagas = scanner.nextInt();
+        eletroposto.setVagas(scanner.nextInt());
 
         System.out.print("Digite o tempo médio de carga (em horas): ");
-        double tempoCarga = scanner.nextDouble();
+        eletroposto.setTempoCarga(scanner.nextDouble());
 
-        Eletropostos novoEletroposto = new Eletropostos(id, local, vagas, tempoCarga);
-
-        eletropostosCadastrados.add(novoEletroposto);
-        System.out.println("Eletroposto cadastrado com sucesso: " + novoEletroposto.local);
+        eletropostosCadastrados.add(eletroposto); // Adiciona o eletroposto à lista
+        System.out.println("Eletroposto cadastrado com sucesso: " + eletroposto.getLocal());
     }
 
     public void exibirPosto() {
