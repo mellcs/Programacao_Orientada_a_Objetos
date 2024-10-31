@@ -10,7 +10,7 @@ public class Main {
         List<VeiculosEletricos> frota = new ArrayList<>();
         List<Motoristas> motoristasCadastrados = new ArrayList<>();
         List<Eletropostos> eletropostosCadastrados = new ArrayList<>();
-        List<Viagens> viagens = new ArrayList<>(); // Lista de viagens
+        List<Viagens> viagens = new ArrayList<>(); 
         
         VeiculosEletricos veiculos = new VeiculosEletricos(0, null, null, 0, 0.0, 0.0);
         Motoristas motoristas = new Motoristas(null, 0, 0.0, null); 
@@ -61,7 +61,7 @@ public class Main {
                         break;
                     }
 
-                    novoVeiculo.addCarro(frota); 
+                    novoVeiculo.addCarro(frota, veiculos); 
                     break;
                 case 2:
                     veiculos.removeCarro(frota);
@@ -70,13 +70,13 @@ public class Main {
                     veiculos.listarCarros(frota);
                     break;
                 case 4:
-                    motoristas.cadMotorista();
+                    motoristas.cadMotorista(motoristasCadastrados, motoristas);
                     break;
                 case 5:
-                    motoristas.exibirMotoristas();
+                    motoristas.exibirMotoristas(motoristasCadastrados);
                     break;
                 case 6:
-                    eletropostos.cadastrar();
+                    eletropostos.cadastrar(eletropostos);
                     break;
                 case 7:
                     eletropostos.exibirPosto();
