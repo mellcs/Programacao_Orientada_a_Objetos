@@ -136,6 +136,6 @@ public class VeiculosEletricos {
     }
     
     public double getQuilometragem() {
-        return quilometragem; // Método para obter a quilometragem
+        return quilometragem; 
     }
 }
