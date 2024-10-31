@@ -19,30 +19,41 @@ public class Motoristas {
         this.recargas = new ArrayList<>(); 
     }
 
-    public void cadMotorista() {
+    public void cadMotorista(List<Motoristas> motoristasCadastrados, Motoristas motorista) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Digite o nome do motorista: ");
-        String nome = scanner.nextLine();
+        motorista.setNome(scanner.nextLine()); // Setar o nome do motorista passado
 
         System.out.print("Digite a identificação do motorista: ");
-        int numId = scanner.nextInt();
+        motorista.setNumId(scanner.nextInt()); // Setar a numId do motorista passado
 
         System.out.print("Digite o número da carteira de motorista: ");
-        double numCarteira = scanner.nextDouble();
+        motorista.setNumCarteira(scanner.nextDouble()); // Setar o numCarteira do motorista passado
 
-        scanner.nextLine();
+        scanner.nextLine(); // Limpar o buffer
 
         System.out.print("Digite o nível de experiência do motorista (iniciante, intermediário ou avançado): ");
-        String experiencia = scanner.nextLine();
+        motorista.setExperiencia(scanner.nextLine()); // Setar a experiência do motorista passado
 
-        Motoristas novoMotorista = new Motoristas(nome, numId, numCarteira, experiencia);
-
+        motoristasCadastrados.add(motorista); // Adicionar o motorista à lista
         
-        System.out.println("Motorista cadastrado com sucesso: " + novoMotorista.nome);
+        System.out.println("Motorista adicionado ao sistema: " + motorista.getNome());
     }
 
-    public void exibirMotoristas() {
+    public void exibirMotoristas(List<Motoristas> motoristasCadastrados) {
+        if (motoristasCadastrados.isEmpty()) {
+            System.out.println("Nenhum motorista cadastrado no momento.");
+        } else {
+            System.out.println("Motoristas cadastrados:");
+            for (Motoristas motorista : motoristasCadastrados) {
+                System.out.println("Nome: " + motorista.getNome() + "| Identificação: " + motorista.getNumId()
+                        + "| Número da carteira: " + motorista.getNumCarteira() + "| Nível de experiência do motorista: " + motorista.getExperiencia());
+            }
+        }
+    }
+    
+    public void exibirMotoristasRecargas() {
         if (recargas.isEmpty()) {
             System.out.println("Nenhum motorista cadastrado no momento.");
         } else {
