@@ -8,8 +8,6 @@ public class Eletropostos {
     protected int vagas;
     protected double tempoCarga;
 
-    protected List<Eletropostos> eletropostosCadastrados = new ArrayList<>();
-
     public Eletropostos(int id, String local, int vagas, double tempoCarga) {
         this.id = id;
         this.local = local;
@@ -17,7 +15,7 @@ public class Eletropostos {
         this.tempoCarga = tempoCarga;
     }
 
-    public void cadastrar(Eletropostos eletroposto) {
+    public void cadastrar(Eletropostos eletroposto, List<Eletropostos> eletropostosCadastrados) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Digite o ID do Eletroposto: ");
@@ -38,7 +36,7 @@ public class Eletropostos {
         System.out.println("Eletroposto cadastrado com sucesso: " + eletroposto.getLocal());
     }
 
-    public void exibirPosto() {
+    public void exibirPosto(List<Eletropostos> eletropostosCadastrados) {
         List<Eletropostos> eletropostosDisponiveis = new ArrayList<>();
         for (Eletropostos eletroposto : eletropostosCadastrados) {
             if (eletroposto.tempoCarga > 0) {
