@@ -25,8 +25,7 @@ public class Viagens {
     public void comecarViagem() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Com qual carro você vai realizar a viagem? Insira seu id: ");
-        VeiculosEletricos veiculosEletricos = new VeiculosEletricos(0, "", "", 0, 0.0, 0.0);
-        veiculosEletricos.listarCarros(frota);
+        veiculo.listarCarros(frota);
         int carroId = scanner.nextInt();
         scanner.nextLine();
 
@@ -43,13 +42,15 @@ public class Viagens {
             System.out.println("Insira a quilometragem da viagem: ");
             double quilometragemViagem = scanner.nextDouble();
             scanner.nextLine();
+            System.out.println("Insira o destino da viagem: ");
+            String destino = scanner.nextLine();
 
             // Atualiza a quilometragem total da viagem
             this.quilometragem += quilometragemViagem;
 
             if (quilometragemViagem <= veiculo.getAut_Max()) {
                 atualizarAutonomiaVeiculo(quilometragemViagem);
-                System.out.println("Viagem concluída! Autonomia atualizada para: " + veiculo.getAut_Max() + " km.");
+                System.out.println("Viagem a " + destino + " concluída! Autonomia atualizada para: " + veiculo.getAut_Max() + " km.");
             } else {
                 planejarParadas();
             }
@@ -67,8 +68,8 @@ public class Viagens {
             for (Eletropostos posto : eletropostosCadastrados) {
                 if (posto.getVagas() > 0) {
                     System.out.println("Parada planejada no eletroposto em " + posto.getLocal() +
-                                       ". Vagas disponíveis: " + posto.getVagas() +
-                                       ", Tempo de carga: " + posto.getTempoCarga() + " horas");
+                                       "| Vagas disponíveis: " + posto.getVagas() +
+                                       "| Tempo de carga: " + posto.getTempoCarga() + " horas");
 
                     autonomiaRestante += veiculo.getCap_Total_Bat();
 
