@@ -11,15 +11,6 @@ public class Main {
         List<Motoristas> motoristasCadastrados = new ArrayList<>();
         List<Eletropostos> eletropostosCadastrados = new ArrayList<>();
         List<Viagens> viagens = new ArrayList<>(); 
-        
-        VeiculosEletricos veiculos = new VeiculosEletricos(0, null, null, 0, 0.0, 0.0);
-        Motoristas motoristas = new Motoristas(null, 0, 0.0, null); 
-        Eletropostos eletropostos = new Eletropostos(0, null, 0, 0.0); 
-        CarregamentoBaterias carregamento = new CarregamentoBaterias();
-        Viagens viagem = new Viagens(0.0, "destino", motoristas, eletropostosCadastrados,frota);
-        
-
-        Relatorio relatorio = new Relatorio(); 
 
         do {
             System.out.println(">>> MENU <<<");
@@ -37,7 +28,14 @@ public class Main {
             System.out.println("0 - Sair.");
             System.out.print("O que você gostaria de fazer: ");
             opc = scanner.nextInt();
-
+            
+            VeiculosEletricos veiculos = new VeiculosEletricos(0, null, null, 0, 0.0, 0.0);
+            Motoristas motoristas = new Motoristas(null, 0, 0.0, null); 
+            Eletropostos eletropostos = new Eletropostos(0, null, 0, 0.0); 
+            CarregamentoBaterias carregamento = new CarregamentoBaterias();
+            Viagens viagem = new Viagens(0.0, "destino", motoristas, eletropostosCadastrados,frota);
+            Relatorio relatorio = new Relatorio(); 
+            
             switch (opc) {
                 case 1:
                     System.out.print("Digite a autonomia máxima: ");
@@ -60,7 +58,7 @@ public class Main {
                         System.out.println("Os parâmetros fornecidos não correspondem a nenhum tipo de carro elétrico.");
                         break;
                     }
-
+                    
                     novoVeiculo.addCarro(frota, veiculos); 
                     break;
                 case 2:
@@ -76,10 +74,10 @@ public class Main {
                     motoristas.exibirMotoristas(motoristasCadastrados);
                     break;
                 case 6:
-                    eletropostos.cadastrar(eletropostos);
+                    eletropostos.cadastrar(eletropostos, eletropostosCadastrados);
                     break;
                 case 7:
-                    eletropostos.exibirPosto();
+                    eletropostos.exibirPosto(eletropostosCadastrados);
                     break;
                 case 8:
                     viagem.comecarViagem(); 
