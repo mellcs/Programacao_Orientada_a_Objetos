@@ -26,7 +26,7 @@ public class VeiculosEletricos {
         System.out.print("Digite o ID do veículo: ");
         veiculo.setId_Num(scanner.nextInt());
 
-        scanner.nextLine(); // Limpar o buffer
+        scanner.nextLine(); 
 
         System.out.print("Digite a marca do veículo: ");
         veiculo.setMarca(scanner.nextLine());
@@ -40,7 +40,7 @@ public class VeiculosEletricos {
         System.out.print("Digite a capacidade total da bateria do veículo: ");
         veiculo.setCap_Total_Bat(scanner.nextDouble());
 
-        frota.add(veiculo); // Adiciona o veículo à frota
+        frota.add(veiculo); 
         System.out.println("Veículo adicionado à frota: " + veiculo.getId_Num());
     }
 
