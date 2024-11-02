@@ -21,7 +21,7 @@ public class Eletropostos {
         System.out.print("Digite o ID do Eletroposto: ");
         eletroposto.setId(scanner.nextInt());
 
-        scanner.nextLine(); // Limpar o buffer
+        scanner.nextLine(); 
 
         System.out.print("Digite a localização do Eletroposto: ");
         eletroposto.setLocal(scanner.nextLine());
@@ -32,7 +32,7 @@ public class Eletropostos {
         System.out.print("Digite o tempo médio de carga (em horas): ");
         eletroposto.setTempoCarga(scanner.nextDouble());
 
-        eletropostosCadastrados.add(eletroposto); // Adiciona o eletroposto à lista
+        eletropostosCadastrados.add(eletroposto); 
         System.out.println("Eletroposto cadastrado com sucesso: " + eletroposto.getLocal());
     }
 
