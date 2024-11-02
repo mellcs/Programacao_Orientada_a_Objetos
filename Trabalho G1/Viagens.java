@@ -7,59 +7,87 @@ import java.util.Scanner;
 public class Viagens {
     protected double quilometragem; 
     protected String destino;
-    private VeiculosEletricos veiculo;
-    private Motoristas motorista; 
-    private List<Eletropostos> eletropostosCadastrados;
-    private List<VeiculosEletricos> frota;
-    private List<Recarga> recargas;
+    protected VeiculosEletricos veiculo;
+    protected Motoristas motorista; 
+    protected List<Recarga> recargas;
 
-    public Viagens(double quilometragem, String destino, Motoristas motorista, List<Eletropostos> eletropostosCadastrados, List<VeiculosEletricos> frota) {
+    public Viagens(double quilometragem, String destino) {
         this.quilometragem = quilometragem; 
         this.destino = destino;
-        this.motorista = motorista;
-        this.eletropostosCadastrados = eletropostosCadastrados;
-        this.frota = frota;
         this.recargas = new ArrayList<>();
     }
 
-    public void comecarViagem() {
+    public void comecarViagem(List<VeiculosEletricos> frota, List<Eletropostos> eletropostosCadastrados, List<Motoristas> motoristasCadastrados) {
         Scanner scanner = new Scanner(System.in);
+        
         System.out.println("Com qual carro você vai realizar a viagem? Insira seu id: ");
-        veiculo.listarCarros(frota);
+        for (VeiculosEletricos v : frota) {
+            System.out.println("ID: " + v.getId_Num() + "| Marca: " + v.getMarca() + "| Modelo: " + v.getModelo());
+        }
+        
         int carroId = scanner.nextInt();
         scanner.nextLine();
 
-        boolean encontrado = false;
+        boolean carroEncontrado = false;
         for (VeiculosEletricos v : frota) {
             if (v.getId_Num() == carroId) {
                 veiculo = v;
-                encontrado = true;
+                carroEncontrado = true;
                 break;
             }
         }
 
-        if (encontrado) {
-            System.out.println("Insira a quilometragem da viagem: ");
-            double quilometragemViagem = scanner.nextDouble();
-            scanner.nextLine();
-            System.out.println("Insira o destino da viagem: ");
-            String destino = scanner.nextLine();
-
-            // Atualiza a quilometragem total da viagem
-            this.quilometragem += quilometragemViagem;
-
-            if (quilometragemViagem <= veiculo.getAut_Max()) {
-                atualizarAutonomiaVeiculo(quilometragemViagem);
-                System.out.println("Viagem a " + destino + " concluída! Autonomia atualizada para: " + veiculo.getAut_Max() + " km.");
-            } else {
-                planejarParadas();
-            }
-        } else {
+        if (!carroEncontrado) {
             System.out.println("Carro informado não está disponível.");
+            return;
+        }
+
+        System.out.println("Qual motorista fará a viagem? Insira sua identificação: ");
+        for (Motoristas m : motoristasCadastrados) {
+            System.out.println("Nome: " + m.getNome() + "| Identificação: " + m.getNumId() + "| Número da carteira: " 
+            + m.getNumCarteira() + "| Nível de experiência do motorista: " + m.getExperiencia());
+        }
+        
+        int motoristaId = scanner.nextInt();
+        scanner.nextLine();
+
+        boolean motoristaEncontrado = false;
+        for (Motoristas m : motoristasCadastrados) {
+            if (m.getNumId() == motoristaId) {
+                motorista = m;
+                motoristaEncontrado = true;
+                break;
+            }
+        }
+
+        if (!motoristaEncontrado) {
+            System.out.println("Motorista informado não está cadastrado.");
+            return;
+        }
+
+        System.out.println("Insira a quilometragem da viagem: ");
+        double quilometragemViagem = scanner.nextDouble();
+        scanner.nextLine();
+        System.out.println("Insira o destino da viagem: ");
+        String destino = scanner.nextLine();
+
+        this.quilometragem += quilometragemViagem;
+        this.destino = destino;
+
+        if (quilometragemViagem <= veiculo.getAut_Max()) {
+            atualizarAutonomiaVeiculo(quilometragemViagem);
+            System.out.println("Viagem a " + destino + " concluída! Autonomia atualizada para: " + veiculo.getAut_Max() + " km.");
+        } else {
+            planejarParadas(eletropostosCadastrados);
+        }
+        
+        if (this.motorista != null) {
+        this.motorista.adicionarViagem(this);
+        System.out.println("Viagem registrada para o motorista: " + motorista.getNome());
         }
     }
 
-    public void planejarParadas() {
+    public void planejarParadas(List<Eletropostos> eletropostosCadastrados) {
         double autonomiaRestante = veiculo.getAut_Max();
 
         if (quilometragem > autonomiaRestante) {
@@ -93,15 +121,12 @@ public class Viagens {
     }
     
     public void registrarRecarga(Eletropostos eletroposto, double quantidade) {
-        
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         String dataFormatada = formato.format(new Date()); 
 
         Recarga novaRecarga = new Recarga(eletroposto, quantidade, dataFormatada); 
         recargas.add(novaRecarga);
         veiculo.setAut_Max(veiculo.getAut_Max() + quantidade); 
-
-        
         motorista.adicionarRecarga(novaRecarga); 
     }
 
