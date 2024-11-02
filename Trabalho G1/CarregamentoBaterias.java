@@ -15,13 +15,11 @@ public class CarregamentoBaterias {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Selecione um veículo da lista:");
 
-        // Listar veículos disponíveis na frota
         listarVeiculos(frota);
 
         System.out.print("Digite o ID do veículo escolhido: ");
         int idEscolhido = scanner.nextInt();
 
-        // Selecionar o veículo correspondente ao ID
         for (VeiculosEletricos veiculo : frota) {
             if (veiculo.getId_Num() == idEscolhido) { 
                 this.veiculo = veiculo;
@@ -60,7 +58,6 @@ public class CarregamentoBaterias {
         System.out.println("Digite o nome do eletroposto utilizado: ");
         String eletropostoUtilizado = scanner.nextLine();
 
-        // Atualizar a autonomia do veículo
         if (veiculo.getAut_Max() + quantidadeRecarga > veiculo.getCap_Total_Bat()) {
             veiculo.setAut_Max(veiculo.getCap_Total_Bat()); 
         } else {
