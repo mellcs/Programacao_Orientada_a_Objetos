@@ -23,20 +23,20 @@ public class Motoristas {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Digite o nome do motorista: ");
-        motorista.setNome(scanner.nextLine()); // Setar o nome do motorista passado
+        motorista.setNome(scanner.nextLine()); 
 
         System.out.print("Digite a identificação do motorista: ");
-        motorista.setNumId(scanner.nextInt()); // Setar a numId do motorista passado
+        motorista.setNumId(scanner.nextInt()); 
 
         System.out.print("Digite o número da carteira de motorista: ");
-        motorista.setNumCarteira(scanner.nextDouble()); // Setar o numCarteira do motorista passado
+        motorista.setNumCarteira(scanner.nextDouble()); 
 
-        scanner.nextLine(); // Limpar o buffer
+        scanner.nextLine();
 
         System.out.print("Digite o nível de experiência do motorista (iniciante, intermediário ou avançado): ");
-        motorista.setExperiencia(scanner.nextLine()); // Setar a experiência do motorista passado
+        motorista.setExperiencia(scanner.nextLine()); 
 
-        motoristasCadastrados.add(motorista); // Adicionar o motorista à lista
+        motoristasCadastrados.add(motorista); 
         
         System.out.println("Motorista adicionado ao sistema: " + motorista.getNome());
     }
@@ -64,6 +64,10 @@ public class Motoristas {
                         + "| Nível de experiência do motorista: " + experiencia);
             }
         }
+    }
+    
+    public void adicionarViagem(Viagens viagem) {
+        viagens.add(viagem);
     }
 
     public void adicionarRecarga(Recarga recarga) {
