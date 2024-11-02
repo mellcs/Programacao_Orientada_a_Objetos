@@ -33,13 +33,15 @@ public class Main {
             Motoristas motoristas = new Motoristas(null, 0, 0.0, null); 
             Eletropostos eletropostos = new Eletropostos(0, null, 0, 0.0); 
             CarregamentoBaterias carregamento = new CarregamentoBaterias();
-            Viagens viagem = new Viagens(0.0, "destino", motoristas, eletropostosCadastrados,frota);
+            Viagens viagem = new Viagens(0.0, "destino");
             Relatorio relatorio = new Relatorio(); 
             
             switch (opc) {
                 case 1:
                     System.out.print("Digite a autonomia máxima: ");
                     double autonomia = scanner.nextDouble();
+                    veiculos.setAut_Max(autonomia);
+                    
                     System.out.print("Digite o tempo médio de carregamento: ");
                     int tempoCarga = scanner.nextInt();
 
@@ -80,7 +82,7 @@ public class Main {
                     eletropostos.exibirPosto(eletropostosCadastrados);
                     break;
                 case 8:
-                    viagem.comecarViagem(); 
+                    viagem.comecarViagem(frota, eletropostosCadastrados, motoristasCadastrados); 
                     viagens.add(viagem); 
                     break; 
                 case 9:
