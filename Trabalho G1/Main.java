@@ -10,10 +10,13 @@ public class Main {
         List<VeiculosEletricos> frota = new ArrayList<>();
         List<Motoristas> motoristasCadastrados = new ArrayList<>();
         List<Eletropostos> eletropostosCadastrados = new ArrayList<>();
-        List<Viagens> viagens = new ArrayList<>(); 
+        List<Viagens> viagens = new ArrayList<>();
         List<CarregamentoBaterias> carregamentos = new ArrayList<>();
-        CarregamentoBaterias carregamento = new CarregamentoBaterias();
-        Relatorio relatorio = new Relatorio(); 
+        CarregamentoBaterias carregamento = new CarregamentoBaterias(); // Inicializando carregamento
+        List<Recarga> recargas = new ArrayList<>();
+        Relatorio relatorio = new Relatorio();
+        double limiteQuilometros = 10000;
+        double bateriaDuracao = 20;
 
         do {
             System.out.println(">>> MENU <<<");
@@ -31,19 +34,18 @@ public class Main {
             System.out.println("0 - Sair.");
             System.out.print("O que você gostaria de fazer: ");
             opc = scanner.nextInt();
-            
+
             VeiculosEletricos veiculos = new VeiculosEletricos(0, null, null, 0, 0.0, 0.0);
-            Motoristas motoristas = new Motoristas(null, 0, 0.0, null); 
-            Eletropostos eletropostos = new Eletropostos(0, null, 0, 0.0); 
-            Viagens viagem = new Viagens(0.0, "destino");
-            
-            
+            Motoristas motoristas = new Motoristas(null, 0, 0.0, null);
+            Eletropostos eletropostos = new Eletropostos(0, null, 0, 0.0);
+            Viagens viagem = null;
+
             switch (opc) {
                 case 1:
                     System.out.print("Digite a autonomia máxima: ");
                     double autonomia = scanner.nextDouble();
                     veiculos.setAut_Max(autonomia);
-                    
+
                     System.out.print("Digite o tempo médio de carregamento: ");
                     int tempoCarga = scanner.nextInt();
 
@@ -62,8 +64,8 @@ public class Main {
                         System.out.println("Os parâmetros fornecidos não correspondem a nenhum tipo de carro elétrico.");
                         break;
                     }
-                    
-                    novoVeiculo.addCarro(frota, veiculos); 
+
+                    novoVeiculo.addCarro(frota, veiculos);
                     break;
                 case 2:
                     veiculos.removeCarro(frota);
@@ -84,9 +86,12 @@ public class Main {
                     eletropostos.exibirPosto(eletropostosCadastrados);
                     break;
                 case 8:
-                    viagem.comecarViagem(frota, eletropostosCadastrados, motoristasCadastrados, viagens); 
-                    viagens.add(viagem); 
-                    break; 
+                    int idEletroposto = 0; 
+                    viagem = new Viagens(0.0, "Destino Exemplo", idEletroposto, eletropostos, recargas); 
+                    viagem.comecarViagem(frota, eletropostosCadastrados, motoristasCadastrados, viagens);
+                    viagens.add(viagem);
+                    System.out.println("Viagem registrada com sucesso!");
+                    break;
                 case 9:
                     carregamento.selecionarVeiculo(frota);
                     break;
@@ -94,7 +99,12 @@ public class Main {
                     carregamento.consultarHistoricoRecargas();
                     break;
                 case 11:
-                    relatorio.relatorioGeral(frota, motoristasCadastrados, viagens, carregamentos); 
+                    System.out.print("Digite o ID do motorista: ");
+                    int numId = scanner.nextInt();
+
+                    System.out.print("Digite o ID do veículo: ");
+                    int id_num = scanner.nextInt();
+                    relatorio.gerarRelatorio(frota, motoristasCadastrados, viagens, recargas, numId, id_num, limiteQuilometros, bateriaDuracao);
                     break;
                 case 0:
                     System.out.println("Saindo do sistema...");
