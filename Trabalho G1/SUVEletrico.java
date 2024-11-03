@@ -9,6 +9,6 @@ public class SUVEletrico extends VeiculosEletricos {
     }
 
     public void cadastrar(List<VeiculosEletricos> frota) {
-        addCarro(frota); 
+        addCarro(frota, this); 
     }
 }
