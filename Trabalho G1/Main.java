@@ -11,6 +11,9 @@ public class Main {
         List<Motoristas> motoristasCadastrados = new ArrayList<>();
         List<Eletropostos> eletropostosCadastrados = new ArrayList<>();
         List<Viagens> viagens = new ArrayList<>(); 
+        List<CarregamentoBaterias> carregamentos = new ArrayList<>();
+        CarregamentoBaterias carregamento = new CarregamentoBaterias();
+        Relatorio relatorio = new Relatorio(); 
 
         do {
             System.out.println(">>> MENU <<<");
@@ -32,9 +35,8 @@ public class Main {
             VeiculosEletricos veiculos = new VeiculosEletricos(0, null, null, 0, 0.0, 0.0);
             Motoristas motoristas = new Motoristas(null, 0, 0.0, null); 
             Eletropostos eletropostos = new Eletropostos(0, null, 0, 0.0); 
-            CarregamentoBaterias carregamento = new CarregamentoBaterias();
             Viagens viagem = new Viagens(0.0, "destino");
-            Relatorio relatorio = new Relatorio(); 
+            
             
             switch (opc) {
                 case 1:
@@ -82,7 +84,7 @@ public class Main {
                     eletropostos.exibirPosto(eletropostosCadastrados);
                     break;
                 case 8:
-                    viagem.comecarViagem(frota, eletropostosCadastrados, motoristasCadastrados); 
+                    viagem.comecarViagem(frota, eletropostosCadastrados, motoristasCadastrados, viagens); 
                     viagens.add(viagem); 
                     break; 
                 case 9:
@@ -92,7 +94,7 @@ public class Main {
                     carregamento.consultarHistoricoRecargas();
                     break;
                 case 11:
-                    relatorio.relatorioGeral(frota, motoristasCadastrados, viagens); 
+                    relatorio.relatorioGeral(frota, motoristasCadastrados, viagens, carregamentos); 
                     break;
                 case 0:
                     System.out.println("Saindo do sistema...");
