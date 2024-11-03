@@ -27,16 +27,46 @@ public class Relatorio {
         }
     }
 
-    public void historicoRecarga(VeiculosEletricos veiculo, List<Viagens> viagens) {
-        System.out.println("Recargas do Veículo: " + veiculo.getId_Num());
-        for (Viagens viagem : viagens) {
-            if (viagem.getVeiculo().equals(veiculo)) {
-                for (Recarga recarga : viagem.getRecarga()) {
-                    System.out.println("Eletroposto: " + recarga.getEletropostos() + "| Quantidade: " + recarga.getQuantidadeRecarga() + " kW| Data: " + recarga.getDataHora());
-                }
+ public void historicoRecarga(VeiculosEletricos veiculo, List<Viagens> viagens, List<CarregamentoBaterias> carregamentos) {
+    System.out.println("Recargas do Veículo: " + veiculo.getId_Num());
+
+    boolean recargaEncontrada = false;
+
+    
+    for (Viagens viagem : viagens) {
+    if (viagem.getVeiculo().equals(veiculo)) {
+        List<Recarga> recargas = viagem.getRecarga(); 
+        if (recargas != null && !recargas.isEmpty()) {
+            for (Recarga recarga : recargas) {
+                System.out.println(
+                    "Eletroposto: " + recarga.getEletropostos().getId() +
+                    " | Quantidade: " + recarga.getQuantidadeRecarga() + " kW" +
+                    " | Data: " + recarga.getDataHora()
+                );
+            }
+            recargaEncontrada = true;
+        } else {
+            System.out.println("Viagem encontrada, mas sem recargas.");
+        }
+    }
+}
+
+
+   
+    for (CarregamentoBaterias carregamento : carregamentos) {
+        for (String recarga : carregamento.getHistoricoRecargas()) {
+            if (recarga.contains("Veículo ID: " + veiculo.getId_Num())) {
+                System.out.println("Recarga (Direta): " + recarga);
+                recargaEncontrada = true;
             }
         }
     }
+
+    if (!recargaEncontrada) {
+        System.out.println("Nenhuma recarga encontrada para o veículo " + veiculo.getId_Num());
+    }
+}
+
 
     public void carrosManutencao(List<VeiculosEletricos> veiculos, double limiteQuilometros, double bateriaDuracao) {
         System.out.println("Carros que precisam de manutenção: ");
@@ -49,13 +79,14 @@ public class Relatorio {
         }
     }
 
-    public void relatorioGeral(List<VeiculosEletricos> veiculos, List<Motoristas> motoristas, List<Viagens> viagens) {
+    public void relatorioGeral(List<VeiculosEletricos> veiculos, List<Motoristas> motoristas, List<Viagens> viagens, List<CarregamentoBaterias> carregamento) {
         System.out.println(">>> Relatório Geral <<<");
         autonomiaCarros(veiculos);
         relatorioMotoristas(motoristas);
         for (VeiculosEletricos veiculo : veiculos) {
-            historicoRecarga(veiculo, viagens);
+            historicoRecarga(veiculo, viagens, carregamento);
         }
+        System.out.println("Relatório geral concluído.");
         double limiteQuilometros = 5000;
         double bateriaDuracao = 20;
         carrosManutencao(veiculos, limiteQuilometros, bateriaDuracao);
