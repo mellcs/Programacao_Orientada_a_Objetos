@@ -1,6 +1,5 @@
 import java.util.List;
 import java.util.Scanner;
-
 public class VeiculosEletricos {
     protected int id_num;
     protected String marca;
@@ -9,6 +8,7 @@ public class VeiculosEletricos {
     protected double cap_total_bat;
     protected double aut_max;
     protected double quilometragem;
+    protected double cargaAtual; 
 
     public VeiculosEletricos(int id_num, String marca, String modelo, int ano_fab, double cap_total_bat, double aut_max) {
         this.id_num = id_num;
@@ -18,8 +18,30 @@ public class VeiculosEletricos {
         this.cap_total_bat = cap_total_bat;
         this.aut_max = aut_max;
         this.quilometragem = 0;
+        this.cargaAtual = cap_total_bat; 
     }
 
+   
+    public double getCargaAtual() {
+        return cargaAtual;
+    }
+
+    
+    public void adicionarCarga(double carga) {
+        this.cargaAtual += carga;
+        if (this.cargaAtual > this.cap_total_bat) {
+            this.cargaAtual = this.cap_total_bat; 
+        }
+    }
+
+    
+    public void consumirCarga(double carga) {
+        this.cargaAtual -= carga;
+        if (this.cargaAtual < 0) {
+            this.cargaAtual = 0; 
+        }
+    }
+    
     public void addCarro(List<VeiculosEletricos> frota, VeiculosEletricos veiculo) {
         Scanner scanner = new Scanner(System.in);
 
@@ -75,8 +97,15 @@ public class VeiculosEletricos {
             }
         }
     }
+    
+    public double getLimiteManutencao() {
+        return 10000; 
+    }
+    public double getVidaUtilBateria() {
+        
+        return (cargaAtual / cap_total_bat) * 100; 
+    }
 
-    // Getters e setters
     public int getId_Num() {
         return id_num;
     }
