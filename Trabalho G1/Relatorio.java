@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.List;
 
 public class Relatorio {
@@ -12,83 +11,57 @@ public class Relatorio {
         }
     }
 
-    public void relatorioMotoristas(List<Motoristas> motoristas) {
-        for (Motoristas motorista : motoristas) {
-            System.out.println("Motorista: " + motorista.getNome() + ", Viagens realizadas:");
-            for (Viagens viagem : motorista.getViagens()) {
-                System.out.println("  Veículo: " + viagem.getVeiculo().getId_Num() + "| Destino: " + viagem.getDestino() + "| Distância: " + viagem.getDistancia() + " km");
-                if (!viagem.getRecarga().isEmpty()) {
-                    System.out.println("    Total de Recargas:");
-                    for (Recarga recarga : viagem.getRecarga()) {
-                        System.out.println("      Eletroposto: " + recarga.getEletropostos() + "| Quantidade: " + recarga.getQuantidadeRecarga() + " kW | Data: " + recarga.getDataHora());
-                    }
-                }
-            }
-        }
-    }
-
- public void historicoRecarga(VeiculosEletricos veiculo, List<Viagens> viagens, List<CarregamentoBaterias> carregamentos) {
-    System.out.println("Recargas do Veículo: " + veiculo.getId_Num());
-
-    boolean recargaEncontrada = false;
-
+    public void listarViagensPorMotorista(List<Viagens> viagens, List<Motoristas> motoristasCadastrados, int numId) {
+        Motoristas motorista = motoristasCadastrados.stream()
+                .filter(m -> m.getNumId() == numId)
+                .findFirst()
+                .orElse(null);
     
-    for (Viagens viagem : viagens) {
-    if (viagem.getVeiculo().equals(veiculo)) {
-        List<Recarga> recargas = viagem.getRecarga(); 
-        if (recargas != null && !recargas.isEmpty()) {
-            for (Recarga recarga : recargas) {
-                System.out.println(
-                    "Eletroposto: " + recarga.getEletropostos().getId() +
-                    " | Quantidade: " + recarga.getQuantidadeRecarga() + " kW" +
-                    " | Data: " + recarga.getDataHora()
-                );
-            }
-            recargaEncontrada = true;
-        } else {
-            System.out.println("Viagem encontrada, mas sem recargas.");
+        if (motorista == null) {
+            System.out.println("Motorista não encontrado.");
+            return;
         }
-    }
-}
-
-
-   
-    for (CarregamentoBaterias carregamento : carregamentos) {
-        for (String recarga : carregamento.getHistoricoRecargas()) {
-            if (recarga.contains("Veículo ID: " + veiculo.getId_Num())) {
-                System.out.println("Recarga (Direta): " + recarga);
-                recargaEncontrada = true;
+    
+        System.out.println("Viagens realizadas pelo motorista " + motorista.getNome() + ":");
+        for (Viagens viagem : viagens) {
+            if (viagem.getMotorista().getNumId() == numId) { 
+                String veiculoModelo = viagem.getVeiculoUsado() != null ? viagem.getVeiculoUsado().getModelo() : "Desconhecido";
+                String eletropostoInfo = (viagem.getRecarga() != null && !viagem.getRecarga().isEmpty()) ? 
+                    String.valueOf(viagem.getRecarga().get(0).getEletropostos().getId()) : "Passou por aqui"; 
+                System.out.println("Distância: " + viagem.getDistancia() +
+                        ", Veículo: " + veiculoModelo +
+                        ", Eletroposto: " + eletropostoInfo +
+                        ", Data: " + viagem.getDataHora());
             }
         }
     }
-
-    if (!recargaEncontrada) {
-        System.out.println("Nenhuma recarga encontrada para o veículo " + veiculo.getId_Num());
+    
+    public void consultarHistoricoRecargas(List<Recarga> recargas, int id_num) {
+        System.out.println("Histórico de recargas para o veículo ID: " + id_num);
+        for (Recarga recarga : recargas) {
+            if (recarga.getId_Num() == id_num) {
+                System.out.println("Eletroposto: " + recarga.getEletropostos().getId() +
+                        ", Quantidade: " + recarga.getQuantidadeRecarga() +
+                        ", Data e Hora: " + recarga.getDataHora());
+            }
+        }
     }
-}
-
-
+        
     public void carrosManutencao(List<VeiculosEletricos> veiculos, double limiteQuilometros, double bateriaDuracao) {
         System.out.println("Carros que precisam de manutenção: ");
         for (VeiculosEletricos veiculo : veiculos) {
             if (veiculo.getQuilometragem() > limiteQuilometros || veiculo.getAut_Max() < bateriaDuracao) {
                 System.out.println("Placa: " + veiculo.getId_Num() + "| Quilometragem: " + veiculo.getQuilometragem() + "| Autonomia da bateria: " + veiculo.getAut_Max() + "%");
-            } else {
-                System.out.println("Carro dentro dos parâmetros: " + veiculo.getId_Num());
             }
         }
     }
 
-    public void relatorioGeral(List<VeiculosEletricos> veiculos, List<Motoristas> motoristas, List<Viagens> viagens, List<CarregamentoBaterias> carregamento) {
-        System.out.println(">>> Relatório Geral <<<");
-        autonomiaCarros(veiculos);
-        relatorioMotoristas(motoristas);
-        for (VeiculosEletricos veiculo : veiculos) {
-            historicoRecarga(veiculo, viagens, carregamento);
-        }
-        System.out.println("Relatório geral concluído.");
-        double limiteQuilometros = 5000;
-        double bateriaDuracao = 20;
-        carrosManutencao(veiculos, limiteQuilometros, bateriaDuracao);
+    
+    public void gerarRelatorio(List<VeiculosEletricos> frota, List<Motoristas> motoristasCadastrados, List<Viagens> viagens, List<Recarga> recargas, int numId, int id_num, double limiteQuilometros, double bateriaDuracao) {
+        System.out.println(">>> RELATÓRIO GERAL <<<");
+        autonomiaCarros(frota);
+        listarViagensPorMotorista(viagens, motoristasCadastrados, numId); 
+        consultarHistoricoRecargas(recargas, id_num); 
+        carrosManutencao(frota, limiteQuilometros, bateriaDuracao); 
     }
 }
