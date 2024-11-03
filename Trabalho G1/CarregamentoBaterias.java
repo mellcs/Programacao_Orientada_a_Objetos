@@ -10,6 +10,10 @@ public class CarregamentoBaterias {
     public CarregamentoBaterias() {
         this.historicoRecargas = new ArrayList<>(); 
     }
+    
+    public List<String> getHistoricoRecargas() {
+    return historicoRecargas; 
+    }
 
     public void selecionarVeiculo(List<VeiculosEletricos> frota) {
         Scanner scanner = new Scanner(System.in);
@@ -69,7 +73,7 @@ public class CarregamentoBaterias {
                          "| Quantidade Recarga: " + quantidadeRecarga + " kWh " + 
                          "| Autonomia Atualizada: " + veiculo.getAut_Max() + " km";
         historicoRecargas.add(registro); 
-
+        
         System.out.println("Recarga registrada com sucesso!");
     }
 
